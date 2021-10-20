@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class GroundChecker : MonoBehaviour
 {
-    private bool isGrounded;
+    private bool _isGrounded;
 
-    public bool IsGrounded => isGrounded;
+    public bool IsGrounded => _isGrounded;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.TryGetComponent<Tile>(out Tile ground))
         {
-            isGrounded = true;
+            _isGrounded = true;
         }
     }
 
@@ -20,7 +20,7 @@ public class GroundChecker : MonoBehaviour
     {
         if (collision.TryGetComponent<Tile>(out Tile ground))
         {
-            isGrounded = false;
+            _isGrounded = false;
         }
     }
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    [SerializeField] int _hitPoints;
+    [SerializeField] private int _hitPoints;
 
     private int _numberOfCoins;
 

@@ -7,8 +7,6 @@ public class EnemyMovement : MonoBehaviour
     [SerializeField] private Transform _patrolArea;
     [SerializeField] private float _speed;
 
-    private Transform _transform;
-
     private Vector3[] _patrolPoints;
     private int _currentPoint;
 
@@ -24,11 +22,11 @@ public class EnemyMovement : MonoBehaviour
     private void Update()
     {
         Vector3 target = _patrolPoints[_currentPoint];
-        var direction = (target - transform.position).normalized;
+        var direction = (target - base.transform.position).normalized;
 
-        transform.position = Vector3.MoveTowards(transform.position, target, _speed * Time.deltaTime);
+        base.transform.position = Vector3.MoveTowards(base.transform.position, target, _speed * Time.deltaTime);
 
-        if (transform.position == target)
+        if (base.transform.position == target)
         {
             _currentPoint++;
             if (_currentPoint >= _patrolPoints.Length)

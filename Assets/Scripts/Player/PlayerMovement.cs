@@ -10,18 +10,19 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float _jumpForce;
     [SerializeField] private GroundChecker _groundChecker;
 
-    private Transform _transform;
     private Rigidbody2D _rigidbody2D;
     private Animator _animator;
     private Vector3 _currentScale;
 
+    private const string Walk = "Walk";
+    private const string Iddle = "Iddle";
+    private const string Jump = "Jump";
 
     private void Start()
     {
-        _transform = GetComponent<Transform>();
         _rigidbody2D = GetComponent<Rigidbody2D>();
         _animator = GetComponent<Animator>();
-        _currentScale = new Vector3(_transform.localScale.x, _transform.localScale.y, _transform.localScale.z);
+        _currentScale = new Vector3(transform.localScale.x, transform.localScale.y, transform.localScale.z);
     }
 
 
@@ -34,14 +35,14 @@ public class PlayerMovement : MonoBehaviour
     private void Move(float speed)
     {
         float deltaMoveX = Input.GetAxis("Horizontal");
-        _transform.Translate(deltaMoveX * speed * Time.deltaTime, 0, 0);
+        transform.Translate(deltaMoveX * speed * Time.deltaTime, 0, 0);
         if (deltaMoveX != 0)
         {
-            _animator.Play("Walk");
+            _animator.Play(Walk);
         }
         else
         {
-            _animator.Play("Iddle");
+            _animator.Play(Iddle);
         }
         ChangeScale(deltaMoveX);
     }
@@ -50,11 +51,11 @@ public class PlayerMovement : MonoBehaviour
     {
         if (moveDirrection > 0)
         {
-            _transform.localScale = _currentScale;
+            transform.localScale = _currentScale;
         }
         if (moveDirrection < 0)
         {
-            _transform.localScale = new Vector3(-_currentScale.x, _currentScale.y, _currentScale.z);
+            transform.localScale = new Vector3(-_currentScale.x, _currentScale.y, _currentScale.z);
         }
     }
 
@@ -63,7 +64,7 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKey(KeyCode.Space) && _groundChecker.IsGrounded)
         {
             _rigidbody2D.AddForce(new Vector2(0, jumpForce));
-            _animator.Play("Jump");
+            _animator.Play(Jump);
         }
     }
 }
